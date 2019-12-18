@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /public/visitor/images/bg
+/public/visitor/images/basura
 .env
 .env.backup
 .phpunit.result.cache

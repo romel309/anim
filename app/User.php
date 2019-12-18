@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function entertainments(){
         return $this->hasMany(Entertainment::class);
     }
+
+    public function lists(){
+        return $this->hasMany(Catalog::class);
+    }
 }

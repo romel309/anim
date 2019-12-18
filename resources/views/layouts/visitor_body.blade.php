@@ -36,24 +36,15 @@
                       <span class="sr-only">Toggle navigation</span>
                       <i class="fa fa-bars"></i>
                   </button>
-                   <a class="navbar-brand" href="index.html"><h1><span class="pe-7s-gleam bounce-in"></span>40Y20</h1></a>
+                   <a class="navbar-brand" href="{{ route('home.show') }}"><h1><span class="pe-7s-gleam bounce-in"></span>40Y20</h1></a>
               </div>
               <div class="collapse navbar-collapse">
                   <ul class="nav navbar-nav navbar-right">
-                      <li><a href="">Home</a></li>
-                      <li><a href="about-us.html">Lists</a></li>
+                      <li><a href="{{ route('home.show') }}">Home</a></li>
+                      <li><a href="{{ route('catalog.index') }}">Lists</a></li>
                       <li><a href="{{ route('entertainment.index') }}">Entertainment</a></li>
-                      <li><a href="portfolio.html">Portfolio</a></li>
-                      <li><a href="blog.html">Blog</a></li>
-                      <li><a href="contact-us.html">Contact</a></li>
-                      <li class="dropdown active">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="icon-angle-down"></i></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="project-item.html">Project Single</a></li>
-                              <li><a href="blog-item.html">Blog Single</a></li>
-                              <li class="active"><a href="404.html">404</a></li>
-                          </ul>
-                      </li>
+                      <li><a href="">Users</a></li>
+                      <li><a href="">Tags</a></li>
                       <li><span class="search-trigger"><i class="fa fa-search"></i></span></li>
                   </ul>
               </div>
