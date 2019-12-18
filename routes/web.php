@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home.visitor_home');
-});
-
-Route::get('/', ['as' => 'home.show', 'uses' => 'HomeController@show']);
+Route::get('/', ['as' => 'home.show', 'uses' => 'HomeController@index']);
 Route::get('/entertainment', ['as' => 'entertainment.index', 'uses' => 'EntertainmentController@index']); //mostrar entretenimiento con id
 Route::get('/entertainment/{entertainment}', ['as' => 'entertainment.show', 'uses' => 'EntertainmentController@show']);
 
 Route::get('/catalog', ['as' => 'catalog.index', 'uses' => 'CatalogController@index']); //mostrar entretenimiento con id
 Route::get('/catalog/{catalog}', ['as' => 'catalog.show', 'uses' => 'CatalogController@show']);
 
-Route::get('/administrator', function () {
-    return view('home.admin_home');
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/administrator', function () {
+      return view('home.admin_home');
+  });
 });
