@@ -21,7 +21,9 @@ Route::get('/catalog/{catalog}', ['as' => 'catalog.show', 'uses' => 'CatalogCont
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-  Route::get('/administrator', function () {
-      return view('home.admin_home');
-  });
+  Route::get('/administrator', ['as' => 'home_admin.index', 'uses' => 'AdminHomeController@index']);
+  Route::get('/administrator/entertainment', ['as' => 'admin_entertainment.index', 'uses' => 'EntertainmentController@admin_index']); //mostrar entretenimiento en admin
+  Route::get('/administrator/tag', ['as' => 'admin_tag.index', 'uses' => 'TagController@admin_index']); //mostrar todos tag en admin
+  Route::get('/administrator/tag/create', ['as' => 'admin_tag.create', 'uses' => 'TagController@admin_create']); //editar tag en admin
+  Route::get('/administrator/tag/edit/{tag}', ['as' => 'admin_tag.edit', 'uses' => 'TagController@admin_edit']); //editar tag en admin
 });

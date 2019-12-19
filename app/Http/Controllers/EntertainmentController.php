@@ -18,6 +18,11 @@ class EntertainmentController extends Controller
         return view('entertainment.index', ['entertainments' => $entertainments]);
     }
 
+    public function admin_index(){
+      $entertainments = Entertainment::paginate(12);
+      return view('entertainment.admin_index', ['entertainments' => $entertainments]);
+    }
+
     public function show(Entertainment $entertainment){
         return view('entertainment.show', ['entertainment' => $entertainment]);
     }

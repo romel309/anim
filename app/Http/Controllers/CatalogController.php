@@ -12,6 +12,12 @@ class CatalogController extends Controller
         $catalogs = Catalog::paginate(12);
         return view('catalog.index', ['catalogs' => $catalogs]);
     }
+
+    public function admin_index(){
+        $catalogs = Catalog::paginate(12);
+        return view('catalog.index', ['catalogs' => $catalogs]);
+    }
+
     public function show(Catalog $catalog){
         return view('catalog.show', ['catalog' => $catalog]);
         //return $catalog->entertainments;
