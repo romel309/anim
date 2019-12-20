@@ -153,7 +153,43 @@
                </div>
             </nav>
             <!-- End Navbar -->
-            @yield('admin_content')
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                        <!-- Alertas -->
+                        @if (session('status'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{ session('status') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>{!! $message !!}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        @endif()
+                        @if ($errors = Session::get('errors'))
+                        @foreach($errors->all() as $message)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <strong>{!! $message !!}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        @endforeach
+                        @endif()
+                        <!-- Termina Alertas -->
+                        @yield('admin_content')
+                      </div>
+                  </div>
+              </div>
+            </div>
             <footer class="footer">
                <div class="container-fluid">
                   <nav class="float-left">

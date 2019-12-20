@@ -23,7 +23,11 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/administrator', ['as' => 'home_admin.index', 'uses' => 'AdminHomeController@index']);
   Route::get('/administrator/entertainment', ['as' => 'admin_entertainment.index', 'uses' => 'EntertainmentController@admin_index']); //mostrar entretenimiento en admin
+  //All routes of tags
   Route::get('/administrator/tag', ['as' => 'admin_tag.index', 'uses' => 'TagController@admin_index']); //mostrar todos tag en admin
-  Route::get('/administrator/tag/create', ['as' => 'admin_tag.create', 'uses' => 'TagController@admin_create']); //editar tag en admin
+  Route::get('/administrator/tag/create', ['as' => 'admin_tag.create', 'uses' => 'TagController@admin_create']); //crear tag en admin
+  Route::post('/administrator/tag/store', ['as' => 'admin_tag.store', 'uses' => 'TagController@admin_store']); //guardar datos tag en admin
   Route::get('/administrator/tag/edit/{tag}', ['as' => 'admin_tag.edit', 'uses' => 'TagController@admin_edit']); //editar tag en admin
+  Route::post('/administrator/tag/update/{tag}', ['as' => 'admin_tag.update', 'uses' => 'TagController@admin_update']); //guardar datos tag en admin
+  Route::post('/administrator/tag/delete/{tag}', ['as' => 'admin_tag.delete', 'uses' => 'TagController@admin_delete']); //guardar datos tag en admin
 });

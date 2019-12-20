@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Database\Eloquent\Model;
 use App\Entertainment;
 use App\Tag;
 
@@ -11,7 +11,7 @@ class EntertainmentController extends Controller
 {
     public function index(){
         if(request('tag')){
-          $entertainments =  Tag::where('name',request('tag'))->firstOrFail()->entertainments->paginate();
+          $entertainments =  Tag::where('name',request('tag'))->firstOrFail()->entertainments()->paginate(12);
         } else{
           $entertainments = Entertainment::paginate(12);
         }
