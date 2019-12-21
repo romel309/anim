@@ -1,0 +1,8 @@
+php artisan make:model Entertainment -mc
+php artisan make:model Tag -mc
+php artisan make:model List -mc
+php artisan tinker
+factory(App\Entertainment::class, 6)->create();
+factory(App\Catalog::class, 20)->create();
+factory(App\Tag::class, 20)->create();
+factory(App\Carousel::class, 4)->create();

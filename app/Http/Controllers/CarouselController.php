@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 use App\Carousel;
 use Auth;
 
@@ -49,6 +50,9 @@ class CarouselController extends Controller
   }
 
   public function admin_delete(Carousel $carousel){
+    if(File::exists($carousel->img_path)) {
+        File::delete($carousel->img_path);
+    }
     $carousel->delete();
     return redirect()->route('admin_carousel.index')
                       ->with('success','Se eliminó la foto del carousel exitosamente');
