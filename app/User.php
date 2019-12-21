@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function lists(){
         return $this->hasMany(Catalog::class);
     }
+
+    public function carousel(){
+        return $this->hasMany(Carousel::class);
+    }
 }

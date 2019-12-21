@@ -22,4 +22,24 @@ class CatalogController extends Controller
         return view('catalog.show', ['catalog' => $catalog]);
         //return $catalog->entertainments;
     }
+
+    public function admin_create(){
+
+    }
+
+    public function admin_store(Catalog $catalog){
+
+    }
+
+    public function admin_edit(){
+
+    }
+
+    public function admin_update(Catalog $catalog){
+
+    }
+
+    public function admin_delete(Catalog $catalog){
+
+    }
 }

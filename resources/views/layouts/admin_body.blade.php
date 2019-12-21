@@ -41,7 +41,7 @@
             </div>
             <div class="sidebar-wrapper">
                <ul class="nav">
-                  <li class="nav-item active  ">
+                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('home_admin.index') }}">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
@@ -72,9 +72,9 @@
                      </a>
                   </li>
                   <li class="nav-item ">
-                     <a class="nav-link" href="">
+                     <a class="nav-link" href="{{ route('admin_carousel.index') }}">
                         <i class="material-icons">image</i>
-                        <p>Carrusel</p>
+                        <p>Carousel</p>
                      </a>
                   </li>
                </ul>

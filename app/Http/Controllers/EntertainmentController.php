@@ -26,4 +26,25 @@ class EntertainmentController extends Controller
     public function show(Entertainment $entertainment){
         return view('entertainment.show', ['entertainment' => $entertainment]);
     }
+
+    public function admin_create(){
+
+    }
+
+    public function admin_store(Entertainment $entertainment){
+
+    }
+
+    public function admin_edit(){
+
+    }
+
+    public function admin_update(Entertainment $entertainment){
+
+    }
+
+    public function admin_delete(Entertainment $entertainment){
+
+    }
+
 }
