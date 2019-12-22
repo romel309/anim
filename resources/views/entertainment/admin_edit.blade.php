@@ -1,8 +1,5 @@
 @extends('layouts.admin_body')
 @section('admin_content')
-<!-- CSS snippet -->
-<link href="{{asset('css/snippet.css')}}" rel="stylesheet" />
-<!--   JS snippet   -->
 
  <div class="card">
     <div class="card-header card-header-info">

@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/administrator/catalog/store', ['as' => 'admin_catalog.store', 'uses' => 'CatalogController@admin_store']); //mostrar entretenimiento en admin
   Route::get('/administrator/catalog/edit/{catalog}', ['as' => 'admin_catalog.edit', 'uses' => 'CatalogController@admin_edit']); //mostrar entretenimiento en admin
   Route::post('/administrator/catalog/update/{catalog}', ['as' => 'admin_catalog.update', 'uses' => 'CatalogController@admin_update']); //mostrar entretenimiento en admin
+  Route::get('/administrator/catalog/editorder/{catalog}', ['as' => 'admin_catalog.editorder', 'uses' => 'CatalogController@admin_edit_order']);
   Route::post('/administrator/catalog/delete/{catalog}', ['as' => 'admin_catalog.delete', 'uses' => 'CatalogController@admin_delete']); //mostrar entretenimiento en admin
   //All routes entertainment
   Route::get('/administrator/entertainment', ['as' => 'admin_entertainment.index', 'uses' => 'EntertainmentController@admin_index']); //mostrar entretenimiento en admin
