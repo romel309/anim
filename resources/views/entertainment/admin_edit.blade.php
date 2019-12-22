@@ -16,7 +16,7 @@
      </div>
     </div>
     <div class="card-body table-responsive">
-      <form method="POST" action="{{route('admin_entertainment.store')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('admin_entertainment.update', $entertainment->id)}}" enctype="multipart/form-data">
       @csrf
       <div class="row">
       <div class="col-lg-6 col-md-6">
@@ -44,9 +44,39 @@
             </div>
           </div>
           <div class="col-lg-12 col-md-12">
-            <div class="form-group">
-              <label for="youtube_link">Youtube link (optional)</label>
-              <input type="text" name="youtube_link" class="form-control" maxlength="100" id="youtube_link" aria-describedby="youtube_link" placeholder="https://www.youtube.com/watch?v=9Gd6u8nCIW4" value="{{ $entertainment->youtube_link}}">
+            <div class="row">
+              <div class="col-lg-8 col-md-8">
+                <div class="form-group">
+                  <label for="youtube_link">Youtube link (optional) </label>
+                  <input type="text" name="youtube_link" class="form-control" maxlength="100" id="youtube_link" aria-describedby="youtube_link" placeholder="https://www.youtube.com/watch?v=9Gd6u8nCIW4" value="{{ $entertainment->youtube_link}}">
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4">
+                <button type="button"  data-toggle="modal" data-target="#verYoutube{{$entertainment->id}}" rel="tooltip" class="btn btn-danger btn-linkbtn-md">
+                            Preview
+                </button>
+              </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="verYoutube{{$entertainment->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="verYoutube{{$entertainment->id}}">Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" allowfullscreen src="{{$iframeyoutube}}"></iframe>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -56,7 +86,13 @@
         @foreach($tags as $tag)
         <div class="form-check form-check-inline">
           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" id="{{$tag->name}}" value="{{$tag->id}}" > {{$tag->name}}
+            <input class="form-check-input" type="checkbox"  name="tagging[]" id="{{$tag->name}}" value="{{$tag->id}}"
+            @foreach($checked as $check)
+              @if($tag->id == $check)
+                checked
+              @endif
+            @endforeach
+            > {{$tag->name}}
             <span class="form-check-sign">
                 <span class="check"></span>
             </span>
