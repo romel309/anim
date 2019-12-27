@@ -898,6 +898,7 @@ ul.tag-cloud li {
 }
 
 .team-member .img-thumbnail {
+    height: 170px;
     padding: 0;
     border-radius: 0;
     margin-bottom: 0;
@@ -908,6 +909,7 @@ ul.tag-cloud li {
 }
 
 .team-content {
+    height: 200px;
     background: #fff;
     padding: 15px;
     border-bottom: 4px solid #f0f0f0;
@@ -2260,7 +2262,7 @@ img.author-box-image {
     font-size: 18px;
     letter-spacing: 2px;
 }
-
+/*
 .team-member .btn {
     margin-top: 10px;
     margin-bottom: 5px;
@@ -2269,7 +2271,7 @@ img.author-box-image {
     width: 40px;
     padding: 0;
 }
-
+*/
 .team-content h5 {
     font-size: 16px;
     text-transform: uppercase;

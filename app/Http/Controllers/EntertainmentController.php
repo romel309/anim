@@ -23,7 +23,13 @@ class EntertainmentController extends Controller
     }
 
     public function show(Entertainment $entertainment){
-        return view('entertainment.show', ['entertainment' => $entertainment]);
+        $entertainments =  Entertainment::orderBy('created_at', 'DESC')->take(6)->get();
+        $youtube = $entertainment->youtube_link;
+        $iframeyoutube='';
+        if ($youtube) {
+            $iframeyoutube= VideoUrlParser::get_youtube_embed(VideoUrlParser::get_youtube_id($entertainment->youtube_link));
+        }
+        return view('entertainment.show', compact('entertainments', 'entertainment', 'iframeyoutube') );
     }
 
     public function admin_index(){

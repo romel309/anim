@@ -73,9 +73,43 @@
       <div class="row">
          <div class="col-lg-12 col-md-12">
             <div class="card">
+               <div class="card-header card-header-primary">
+                  <h4 class="card-title">Notes Visitor</h4>
+               </div>
+               <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                     <thead class="text-primary">
+                        <th>Functionality</th>
+                        <th>Notes</th>
+                     </thead>
+                     <tbody>
+                       <tr>
+                          <td>Bugs</td>
+                          <td>Si encuentran algún bug o algo se ve de la verga mi excusa es que en mi compu si jalaba bien</td>
+                       </tr>
+                        <tr>
+                           <td>Home</td>
+                           <td>Asqueroso el template esta muy de la verga no lo recomiendo. No esta implementada la busqueda del nav en la segunda versión ahi va a estar</td>
+                        </tr>
+                        <tr>
+                           <td>Tags</td>
+                           <td>Si le dan clic en los tags los lleva a los entretenimientos con esos tags.</td>
+                        </tr>
+                        <tr>
+                          <td>Usuarios</td>
+                          <td>Su username esta debajo de su nombre por si se les olvida</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12 col-md-12">
+            <div class="card">
                <div class="card-header card-header-warning">
-                  <h4 class="card-title">Functionalities Admin</h4>
-                  <p class="card-category">23/12/2019</p>
+                  <h4 class="card-title">Notes Admin</h4>
                </div>
                <div class="card-body table-responsive">
                   <table class="table table-hover">

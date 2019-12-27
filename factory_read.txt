@@ -6,3 +6,5 @@ factory(App\Entertainment::class, 6)->create();
 factory(App\Catalog::class, 20)->create();
 factory(App\Tag::class, 10)->create();
 factory(App\Carousel::class, 4)->create();
+https://www.youtube.com/watch?v=M8vZaFm3R-g
+https://www.youtube.com/watch?v=O-j1kgyINLo

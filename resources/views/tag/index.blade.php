@@ -3,10 +3,8 @@
     <section id="portfolio" class="white">
         <div class="container">
             <div class="gap"></div>
-            <div class="center gap fade-down section-heading">
+            <div class=" gap fade-down section-heading">
                 <h2 class="main-title">Tags</h2>
-                <hr>
-                <p>No saben que nuestro secreto es tu juventud y mi experiencia.</p>
             </div>
             @forelse($tags->chunk(3) as $chunk)
             <div class="row">
@@ -17,7 +15,7 @@
                             <h5 class="card-title">{{$tag->name}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{$tag->created_at}}</h6>
                             <p class="card-text">{{$tag->description}}</p>
-                            <a href="#" class="btn btn-primary">View entertainments</a>
+                            <a href="/entertainment?tag={{$tag->name}}" class="btn btn-primary">View entertainments</a>
                         </div>
                     </div>
                 </div>

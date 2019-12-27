@@ -41,7 +41,7 @@ class User extends Authenticatable
         return $this->hasMany(Entertainment::class);
     }
 
-    public function lists(){
+    public function catalog(){
         return $this->hasMany(Catalog::class);
     }
 

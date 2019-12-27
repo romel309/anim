@@ -32,6 +32,7 @@
               zoom: 14 });
       });
 </script>
+<link href="{{ asset('visitor/css/cards_custom.css') }}" rel="stylesheet">
 @endsection
 
 
@@ -47,7 +48,7 @@
                                 <div class="carousel-content center centered">
                                     <h2 class=" animated-item-1 fade-down"><img class="logo-carousel" src="{{'visitor/images/logo/40&20.png'}}" alt="Responsive image"></a></h2>
                                     <br>
-                                    <a class="btn btn-md animation bounce-in" style="color:#d06dac;" href="#services">Recomendations</a>
+                                    <a class="btn btn-md animation bounce-in" style="color:#d06dac;" target="_blank" href="https://youtu.be/86FCW0GRRcc?t=68">Recomendations</a>
                                 </div>
                             </div>
                         </div>
@@ -173,17 +174,25 @@
 
         <section id="about-us" class="white">
         	<div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="center gap fade-down section-heading">
+                            <h2 class="main-title">Torime</h2>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
 	            <div id="meet-the-team" class="row">
                   @foreach($users as $user)
 	                <div class="col-md-3 col-xs-6">
 	                    <div class="center team-member">
                             <div class="team-image">
-                                <img class="img-thumbnail img-fluid" src="{{asset($user->img_path)}}" alt="{{$user->name}}">
+                                <img class="img-thumbnail" src="{{asset($user->img_path)}}" alt="{{$user->name}}">
                             </div>
 	                        <div class="team-content fade-up">
 	                            <h5>{{$user->name}}<small class="role muted">{{$user->username}}</small></h5>
 	                            <p>{{$user->description}}</p>
-	                            <a class="btn btn-social btn-facebook" href="{{route('user.show', $user->id)}}"><i class="fa fa-user"></i></a>
+                              <a href="{{route('user.show', $user->id)}}" type="button" class="btn btn-primary">Profile</a>
 	                        </div>
 	                    </div>
 	                </div>
@@ -231,7 +240,7 @@
             <div class="gap"></div>
         </section>
 
-        <section id="portfolio" class="white">
+        <section  class="white">
        		<div class="container">
 	        	<div class="gap"></div>
 		        	<div class="center gap fade-down section-heading">
@@ -239,8 +248,8 @@
 		                <hr>
 		                <p>No saben que nuestro secreto es tu juventud y mi experiencia.</p>
 		            </div>
+                <div class="row">
                 @forelse($catalogs as $catalog)
-                  <div class="row">
                     <div class="col-sm-4 col-md-4 col-lg-4">
                       <div class="card"><img src="{{$catalog->thumbnail}}" alt="foto de lista"/>
                           <div class="info">
@@ -251,12 +260,10 @@
                           </div>
                       </div>
                     </div>
-                    <div class="gap"></div>
-                  </div>
-                  <div class="gap"></div>
                   @empty
                   <p class="center">No Lists</p>
                   @endforelse
+                  </div>
                 </div>
             </section>
 
@@ -265,7 +272,7 @@
 	            <div class="container">
 	                <div class="row">
                     	<div class="center gap fade-down section-heading">
-                            <h2 class="main-title">Lo que se viene</h2>
+                            <h2 class="main-title">Sale</h2>
                             <hr>
                             <div class="gap"></div>
                         </div>
@@ -274,7 +281,7 @@
 	      		</div>
       		</section>
 
-          <section id="blog" class="white">
+          <section class="white">
                 <div class="container">
                     <div class="center gap fade-down section-heading">
                    		<div class="gap"></div>
@@ -283,8 +290,8 @@
                         <p>Decir que este amor es prohibido que tengo cuarenta y tu veinte.</p>
                     </div>
                     <div class="gap"></div>
+                    <div class="row">
                     @forelse($entertainments as $entertainment)
-                      <div class="row">
                           <div class="col-sm-4 col-md-4 col-lg-4">
                                 <div class="post">
                                     <div class="post-img-content">
@@ -312,10 +319,11 @@
                                     </div>
                                 </div>
                           </div>
-                      </div>
+
                       @empty
                       <p class="center">No Entertainment</p>
                 @endforelse
+                </div>
                 </div>
        		</section>
 

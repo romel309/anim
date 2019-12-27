@@ -9,7 +9,7 @@
               <div class="col-sm-12 col-md-12  col-lg-12">
                 <h4>{{$catalog->name}} </h4>
                 <div class="author">
-                    <i class="fa fa-user"></i>Created By <b>{{$catalog->user->username}}</b> |
+                    <i class="fa fa-user"></i>Created By <a href="{{route('user.show',$catalog->user_id)}}"><b>{{$catalog->user->username}}</b></a> |
                     <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">Created at: {{$catalog->created_at}}</time> |
                     <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">Updated at: {{ $catalog->updated_at}}</time>
                 </div>

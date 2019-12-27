@@ -107,7 +107,7 @@ class CatalogController extends Controller
         'ente.*' => 'numeric',
       ]);
       if(request()->hasfile('thumbnail')){
-        $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
+        $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
         $datatToStore = ([
           'user_id' => Auth::user()->id,
           'name' => request()->name,

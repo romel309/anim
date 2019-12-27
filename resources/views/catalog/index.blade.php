@@ -8,7 +8,7 @@
     <div class="container">
       <div class="gap"></div>
         <div class="gap fade-down section-heading">
-              <h2 class="main-title">Nuevas Listas</h2>
+              <h2 class="main-title">Listas</h2>
         </div>
         @forelse($catalogs->chunk(3) as $chunk)
           <div class="row">
@@ -23,10 +23,8 @@
                   </div>
               </div>
             </div>
-            <div class="gap"></div>
             @endforeach
           </div>
-          <div class="gap"></div>
           @empty
           <p>No Lists</p>
           @endforelse

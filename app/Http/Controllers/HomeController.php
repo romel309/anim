@@ -30,10 +30,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $users = User::all();
-      $entertainments = Entertainment::orderBy('created_at', 'DESC')->take(3);
-      $catalogs = Catalog::orderBy('created_at', 'DESC')->take(3);
-      $tags = Tag::orderBy('created_at', 'DESC')->take(3);
+      $users = User::take(4)->get();
+      $entertainments = Entertainment::orderBy('created_at', 'DESC')->take(3)->get();
+      $catalogs = Catalog::orderBy('created_at', 'DESC')->take(3)->get();
+      $tags = Tag::orderBy('created_at', 'DESC')->take(3)->get();
       $carousel = Carousel::where('show', 1)->get();
         return view('home.visitor_home', compact('users', 'entertainments', 'tags', 'catalogs', 'carousel'));
     }
