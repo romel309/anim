@@ -30,10 +30,19 @@
       <link href="{{ asset('admin/css/material-dashboard.css?v=2.1.1') }}" rel="stylesheet" />
       <!-- CSS Just for demo purpose, don't include it in your project -->
       <link href="{{ asset('admin/demo/demo.css') }}" rel="stylesheet" />
+      <link rel="shortcut icon" href="{{ asset('visitor/images/ico/apple-touch-icon.png')}}">
+      <link rel="apple-touch-icon" href="{{ asset('visitor/images/ico/apple-touch-icon.png')}}" >
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('visitor/images/ico/apple-touch-icon.png')}}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('visitor/images/ico/favicon-32x32.png')}}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('visitor/images/ico/favicon-16x16.png')}}">
+      <link rel="manifest" href="{{ asset('visitor/images/ico/site.webmanifest')}}">
+      <link rel="mask-icon" href="{{ asset('visitor/images/ico/safari-pinned-tab.svg')}}" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="theme-color" content="#ffffff">
    </head>
    <body class="">
       <div class="wrapper ">
-         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+         <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{ asset('admin/img/sidebar-1.jpg') }}">
             <div class="logo">
                <a href="{{ route('home_admin.index') }}" class="simple-text logo-normal">
                Admin 40y20
@@ -48,7 +57,7 @@
                      </a>
                   </li>
                   <li class="nav-item ">
-                     <a class="nav-link" href="">
+                     <a class="nav-link" href="{{ route('admin_user.index')}}">
                         <i class="material-icons">person</i>
                         <p>Users</p>
                      </a>
@@ -67,7 +76,7 @@
                   </li>
                   <li class="nav-item ">
                      <a class="nav-link" href="{{ route('admin_tag.index') }}">
-                        <i class="material-icons">bubble_chart</i>
+                        <i class="material-icons">local_offer</i>
                         <p>Tags</p>
                      </a>
                   </li>
@@ -85,7 +94,7 @@
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                <div class="container-fluid">
                   <div class="navbar-wrapper">
-                     <a class="navbar-brand" href="#pablo">Dashboard</a>
+                     <a class="navbar-brand" href="https://github.com/romel309/anim" target="_blank">Version: 0.1 </a>
                   </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="sr-only">Toggle navigation</span>
@@ -105,13 +114,22 @@
                      </form>
                      <ul class="navbar-nav">
                         <li class="nav-item">
-                           <a class="nav-link" href="#pablo">
+                           <a class="nav-link" href="{{ route('home_admin.index') }}">
                               <i class="material-icons">dashboard</i>
                               <p class="d-lg-none d-md-block">
                                  Stats
                               </p>
                            </a>
                         </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{ route('home.show') }}">
+                              <i class="material-icons">home</i>
+                              <p class="d-lg-none d-md-block">
+                                 Visitor
+                              </p>
+                           </a>
+                        </li>
+                        <!--
                         <li class="nav-item dropdown">
                            <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <i class="material-icons">notifications</i>
@@ -127,9 +145,10 @@
                               <a class="dropdown-item" href="#">Another Notification</a>
                               <a class="dropdown-item" href="#">Another One</a>
                            </div>
+                            -->
                         </li>
                         <li class="nav-item dropdown">
-                           <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <a class="nav-link"  id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <i class="material-icons">person</i>
                               <p class="d-lg-none d-md-block">
                                  Account
@@ -137,7 +156,7 @@
                            </a>
                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                               <a class="dropdown-item" href="#">{{Auth::user()->name}}</a>
-                              <a class="dropdown-item" href="#">Settings</a>
+                              <!--<a class="dropdown-item" href="#">Settings</a>-->
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="{{ route('logout') }}"
                                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

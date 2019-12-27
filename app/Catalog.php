@@ -12,7 +12,7 @@ class Catalog extends Model
   }
 
   public function entertainments(){
-    return $this->belongsToMany(Entertainment::class)->withPivot('id','rank');
+    return $this->belongsToMany(Entertainment::class)->withPivot('id','rank')->orderBy('rank', 'asc');
   }
 
   public function visitor_entertainments(){

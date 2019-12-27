@@ -28,10 +28,10 @@ class CarouselController extends Controller
       $carousel = new Carousel;
       $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
       $carousel->user_id = Auth::user()->id;
-      $carousel->img_path = 'visitor/images/bg/'.$imageName;
+      $carousel->img_path = 'visitor/images/carousel/'.$imageName;
       $carousel->show = request()->show;
       $carousel->save();
-      request()->img_path->move(public_path('visitor/images/bg'), $imageName);
+      request()->img_path->move(public_path('visitor/images/carousel'), $imageName);
       return redirect()->route('admin_carousel.index')
                         ->with('success','Se agregó la foto  al carousel exitosamente');
   }

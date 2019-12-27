@@ -54,7 +54,7 @@
               </div>
             </div>
              @empty
-             <p>No tags</p>
+             <p>No lists</p>
              @endforelse
           </tbody>
        </table>

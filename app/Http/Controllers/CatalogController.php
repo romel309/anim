@@ -44,10 +44,10 @@ class CatalogController extends Controller
         'user_id' => Auth::user()->id,
         'name' => request()->name,
         'description' => request()->description,
-        'thumbnail' => 'visitor/images/bg/'.$imageName,
+        'thumbnail' => 'visitor/images/catalog/'.$imageName,
       ]);
       Catalog::create($datatToStore);
-      request()->thumbnail->move(public_path('visitor/images/bg'), $imageName);
+      request()->thumbnail->move(public_path('visitor/images/catalog'), $imageName);
       $searchEntertainment = Catalog::where('name', request()->name)->first();
       $allEntertainments = collect();
       $i=1;
@@ -75,6 +75,29 @@ class CatalogController extends Controller
       return view('catalog.admin_edit_order', compact('catalog'));
     }
 
+    public function admin_update_order(Catalog $catalog){
+      $ranked = Catalog::find($catalog->id);
+      $validatedAttributes = request()->validate([
+        'n.*' => 'numeric|required|min:0|max:100',
+      ]);
+      $inputs = collect();
+      $loop=0;
+      foreach (request()->input() as $i){
+        if($loop != 0){
+          $inputs->push($i);
+        }
+        $loop++;
+      }
+      $loop=0;
+      foreach ($ranked->entertainments as $ind_r){
+        $ranked->entertainments()->updateExistingPivot($ind_r->id, ['rank' => $inputs[$loop]]);
+        $loop++;
+      }
+
+      return redirect()->route('admin_catalog.index')
+                        ->with('success','Se editó el orden exitosamente');
+    }
+
     public function admin_update(Catalog $catalog){
       $validatedAttributes = request()->validate([
         'name' => 'required|string|max:255',
@@ -89,13 +112,13 @@ class CatalogController extends Controller
           'user_id' => Auth::user()->id,
           'name' => request()->name,
           'description' => request()->description,
-          'thumbnail' => 'visitor/images/bg/'.$imageName,
+          'thumbnail' => 'visitor/images/catalog/'.$imageName,
         ]);
         if(File::exists($catalog->thumbnail)) {
             File::delete($catalog->thumbnail);
         }
         $catalog->update($datatToStore);
-        request()->thumbnail->move(public_path('visitor/images/bg'), $imageName);
+        request()->thumbnail->move(public_path('visitor/images/catalog'), $imageName);
         $searchCatalog = Catalog::where('name', request()->name)->first();
         $allEntertainments = collect();
         $i=1;
@@ -122,7 +145,7 @@ class CatalogController extends Controller
 
     public function admin_delete(Catalog $catalog){
       if(File::exists($catalog->thumbnail)) {
-          File::delete($entertainment->thumbnail);
+          File::delete($catalog->thumbnail);
       }
       $catalog->delete();
       return redirect()->route('admin_catalog.index')

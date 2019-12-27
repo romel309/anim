@@ -1,0 +1,19 @@
+.logo-nav {
+    position: relative;
+    bottom: 13px;
+    width: 120px !important;
+    height: 50px !important;
+}
+
+.logo-carousel{
+  position: relative;
+  top: 60px;
+  width: 400px !important;
+  height: 190px !important;
+}
+
+.logo-admin{
+  position: absolute;
+  width: 10px !important;
+  height: 10px !important;
+}

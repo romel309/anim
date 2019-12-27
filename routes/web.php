@@ -18,17 +18,29 @@ Route::get('/entertainment/{entertainment}', ['as' => 'entertainment.show', 'use
 Route::get('/catalog', ['as' => 'catalog.index', 'uses' => 'CatalogController@index']); //mostrar entretenimiento con id
 Route::get('/catalog/{catalog}', ['as' => 'catalog.show', 'uses' => 'CatalogController@show']);
 
+Route::get('/user', ['as' => 'user.index', 'uses' => 'UserController@index']);
+Route::get('/user/{user}', ['as' => 'user.show', 'uses' => 'UserController@show']);
+
+Route::get('/tag', ['as' => 'tag.index', 'uses' => 'TagController@index']);
+
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/administrator', ['as' => 'home_admin.index', 'uses' => 'AdminHomeController@index']);
+  // All routes unser
+  Route::get('/administrator/user', ['as' => 'admin_user.index', 'uses' => 'UserController@admin_index']);
+  Route::get('/administrator/user/create', ['as' => 'admin_user.create', 'uses' => 'UserController@admin_create']);
+  Route::post('/administrator/user/store', ['as' => 'admin_user.store', 'uses' => 'UserController@admin_store']);
+  Route::get('/administrator/user/edit/{user}', ['as' => 'admin_user.edit', 'uses' => 'UserController@admin_edit']);
+  Route::post('/administrator/user/update/{user}', ['as' => 'admin_user.update', 'uses' => 'UserController@admin_update']);
+  Route::post('/administrator/user/delete/{user}', ['as' => 'admin_user.delete', 'uses' => 'UserController@admin_delete']);
   //All routes carousel
   Route::get('/administrator/carousel', ['as' => 'admin_carousel.index', 'uses' => 'CarouselController@admin_index']);
   Route::get('/administrator/carousel/create', ['as' => 'admin_carousel.create', 'uses' => 'CarouselController@admin_create']);
   Route::post('/administrator/carousel/store', ['as' => 'admin_carousel.store', 'uses' => 'CarouselController@admin_store']);
   Route::get('/administrator/carousel/edit/{carousel}', ['as' => 'admin_carousel.edit', 'uses' => 'CarouselController@admin_edit']);
   Route::post('/administrator/carousel/update/{carousel}', ['as' => 'admin_carousel.update', 'uses' => 'CarouselController@admin_update']);
-  Route::post('/administrator/delete/{carousel}', ['as' => 'admin_carousel.delete', 'uses' => 'CarouselController@admin_delete']);
+  Route::post('/administrator/carousel/delete/{carousel}', ['as' => 'admin_carousel.delete', 'uses' => 'CarouselController@admin_delete']);
   //All routes catalogs
   Route::get('/administrator/catalog', ['as' => 'admin_catalog.index', 'uses' => 'CatalogController@admin_index']); //mostrar entretenimiento en admin
   Route::get('/administrator/catalog/create', ['as' => 'admin_catalog.create', 'uses' => 'CatalogController@admin_create']); //mostrar entretenimiento en admin
@@ -36,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/administrator/catalog/edit/{catalog}', ['as' => 'admin_catalog.edit', 'uses' => 'CatalogController@admin_edit']); //mostrar entretenimiento en admin
   Route::post('/administrator/catalog/update/{catalog}', ['as' => 'admin_catalog.update', 'uses' => 'CatalogController@admin_update']); //mostrar entretenimiento en admin
   Route::get('/administrator/catalog/editorder/{catalog}', ['as' => 'admin_catalog.editorder', 'uses' => 'CatalogController@admin_edit_order']);
+  Route::post('/administrator/catalog/updateorder/{catalog}', ['as' => 'admin_catalog.updateorder', 'uses' => 'CatalogController@admin_update_order']);
   Route::post('/administrator/catalog/delete/{catalog}', ['as' => 'admin_catalog.delete', 'uses' => 'CatalogController@admin_delete']); //mostrar entretenimiento en admin
   //All routes entertainment
   Route::get('/administrator/entertainment', ['as' => 'admin_entertainment.index', 'uses' => 'EntertainmentController@admin_index']); //mostrar entretenimiento en admin

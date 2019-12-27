@@ -12,13 +12,25 @@
     </div>
    </div>
    <div class="card-body table-responsive">
-     <form method="POST" action="{{route('admin_catalog.update', $catalog->id)}}" enctype="multipart/form-data">
+     <form method="POST" action="{{route('admin_catalog.updateorder', $catalog->id)}}" enctype="multipart/form-data">
      @csrf
-     <div class="row">
-       @foreach($catalog->entertainments as $e)
-       <p>{{$e->pivot->id}}</p>
-       @endforeach
-     </div>
+       <table class="table table-hover">
+          <thead class="text-info center">
+             <th>Name</th>
+             <th>Current rank</th>
+             <th>New rank</th>
+          </thead>
+          <tbody>
+           @foreach($catalog->entertainments as $entertainment)
+           <tr>
+           <td>{{$entertainment->name}}</td>
+           <td>{{$entertainment->pivot->rank}}</td>
+           <td><input type="number" name="n{{$entertainment->pivot->id}}" required class="form-control" id="n{{$entertainment->pivot->id}}" min="0" max="100" value="{{ old('name')}}">
+           </td>
+           </tr>
+           @endforeach
+          </tbody>
+      <table>
      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
    </div>

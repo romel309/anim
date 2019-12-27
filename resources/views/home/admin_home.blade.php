@@ -5,17 +5,15 @@
             <div class="card card-stats">
                <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                     <i class="material-icons">content_copy</i>
+                     <i class="material-icons">person</i>
                   </div>
-                  <p class="card-category">Used Space</p>
-                  <h3 class="card-title">49/50
-                     <small>GB</small>
-                  </h3>
+                  <p class="card-category">Total users</p>
+                  <h3 class="card-title">{{$users}}</h3>
                </div>
                <div class="card-footer">
                   <div class="stats">
-                     <i class="material-icons text-danger">warning</i>
-                     <a href="#pablo">Get More Space...</a>
+                     <i class="material-icons">person</i>
+                     <a href="{{route('admin_user.index')}}">Check all</a>
                   </div>
                </div>
             </div>
@@ -24,14 +22,15 @@
             <div class="card card-stats">
                <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
-                     <i class="material-icons">store</i>
+                    <i class="material-icons">content_paste</i>
                   </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
+                  <p class="card-category">Entertainments</p>
+                  <h3 class="card-title">{{$entertainments}}</h3>
                </div>
                <div class="card-footer">
                   <div class="stats">
-                     <i class="material-icons">date_range</i> Last 24 Hours
+                     <i class="material-icons">content_paste</i>
+                     <a href="{{route('admin_entertainment.index')}}">Check all</a>
                   </div>
                </div>
             </div>
@@ -40,14 +39,15 @@
             <div class="card card-stats">
                <div class="card-header card-header-danger card-header-icon">
                   <div class="card-icon">
-                     <i class="material-icons">info_outline</i>
+                    <i class="material-icons">library_books</i>
                   </div>
-                  <p class="card-category">Fixed Issues</p>
-                  <h3 class="card-title">75</h3>
+                  <p class="card-category">Lists</p>
+                  <h3 class="card-title">{{$catalogs}}</h3>
                </div>
                <div class="card-footer">
                   <div class="stats">
-                     <i class="material-icons">local_offer</i> Tracked from Github
+                     <i class="material-icons">library_books</i>
+                     <a href="{{route('admin_catalog.index')}}">Check all</a>
                   </div>
                </div>
             </div>
@@ -56,355 +56,57 @@
             <div class="card card-stats">
                <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
-                     <i class="fa fa-twitter"></i>
+                    <i class="material-icons">local_offer</i>
                   </div>
-                  <p class="card-category">Followers</p>
-                  <h3 class="card-title">+245</h3>
+                  <p class="card-category">Tags</p>
+                  <h3 class="card-title">{{$tags}}</h3>
                </div>
                <div class="card-footer">
                   <div class="stats">
-                     <i class="material-icons">update</i> Just Updated
+                    <i class="material-icons">local_offer</i>
+                    <a href="{{route('admin_catalog.index')}}">Check all</a>
                   </div>
                </div>
             </div>
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4">
-            <div class="card card-chart">
-               <div class="card-header card-header-success">
-                  <div class="ct-chart" id="dailySalesChart"></div>
-               </div>
-               <div class="card-body">
-                  <h4 class="card-title">Daily Sales</h4>
-                  <p class="card-category">
-                     <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
-                  </p>
-               </div>
-               <div class="card-footer">
-                  <div class="stats">
-                     <i class="material-icons">access_time</i> updated 4 minutes ago
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4">
-            <div class="card card-chart">
-               <div class="card-header card-header-warning">
-                  <div class="ct-chart" id="websiteViewsChart"></div>
-               </div>
-               <div class="card-body">
-                  <h4 class="card-title">Email Subscriptions</h4>
-                  <p class="card-category">Last Campaign Performance</p>
-               </div>
-               <div class="card-footer">
-                  <div class="stats">
-                     <i class="material-icons">access_time</i> campaign sent 2 days ago
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4">
-            <div class="card card-chart">
-               <div class="card-header card-header-danger">
-                  <div class="ct-chart" id="completedTasksChart"></div>
-               </div>
-               <div class="card-body">
-                  <h4 class="card-title">Completed Tasks</h4>
-                  <p class="card-category">Last Campaign Performance</p>
-               </div>
-               <div class="card-footer">
-                  <div class="stats">
-                     <i class="material-icons">access_time</i> campaign sent 2 days ago
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-lg-6 col-md-12">
-            <div class="card">
-               <div class="card-header card-header-tabs card-header-primary">
-                  <div class="nav-tabs-navigation">
-                     <div class="nav-tabs-wrapper">
-                        <span class="nav-tabs-title">Tasks:</span>
-                        <ul class="nav nav-tabs" data-tabs="tabs">
-                           <li class="nav-item">
-                              <a class="nav-link active" href="#profile" data-toggle="tab">
-                                 <i class="material-icons">bug_report</i> Bugs
-                                 <div class="ripple-container"></div>
-                              </a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#messages" data-toggle="tab">
-                                 <i class="material-icons">code</i> Website
-                                 <div class="ripple-container"></div>
-                              </a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#settings" data-toggle="tab">
-                                 <i class="material-icons">cloud</i> Server
-                                 <div class="ripple-container"></div>
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class="tab-content">
-                     <div class="tab-pane active" id="profile">
-                        <table class="table">
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="" checked>
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="">
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="">
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                 </td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="" checked>
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     <div class="tab-pane" id="messages">
-                        <table class="table">
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="" checked>
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                 </td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="">
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     <div class="tab-pane" id="settings">
-                        <table class="table">
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="">
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="" checked>
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                 </td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="form-check">
-                                       <label class="form-check-label">
-                                       <input class="form-check-input" type="checkbox" value="" checked>
-                                       <span class="form-check-sign">
-                                       <span class="check"></span>
-                                       </span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                    <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                    <i class="material-icons">close</i>
-                                    </button>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-6 col-md-12">
+         <div class="col-lg-12 col-md-12">
             <div class="card">
                <div class="card-header card-header-warning">
-                  <h4 class="card-title">Employees Stats</h4>
-                  <p class="card-category">New employees on 15th September, 2016</p>
+                  <h4 class="card-title">Functionalities Admin</h4>
+                  <p class="card-category">23/12/2019</p>
                </div>
                <div class="card-body table-responsive">
                   <table class="table table-hover">
                      <thead class="text-warning">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Salary</th>
-                        <th>Country</th>
+                        <th>Functionality</th>
+                        <th>Notes</th>
                      </thead>
                      <tbody>
+                       <tr>
+                          <td>Dashboard</td>
+                          <td>No esta implementado el search.</td>
+                       </tr>
                         <tr>
-                           <td>1</td>
-                           <td>Dakota Rice</td>
-                           <td>$36,738</td>
-                           <td>Niger</td>
+                           <td>CRUD Users</td>
+                           <td>Espero en el futuro hacer roles y privilegios pero por el momento todos son admin.</td>
                         </tr>
                         <tr>
-                           <td>2</td>
-                           <td>Minerva Hooper</td>
-                           <td>$23,789</td>
-                           <td>Curaçao</td>
+                          <td>CRUD Listas</td>
+                          <td>Algo super austero pero funciona. Primero se crea la lista y despues eliges el orden de los entretenimientos</td>
                         </tr>
                         <tr>
-                           <td>3</td>
-                           <td>Sage Rodriguez</td>
-                           <td>$56,142</td>
-                           <td>Netherlands</td>
+                          <td>CRUD Entertainment</td>
+                          <td>Se cargan todos los tags en la forma y en un futuro si hay muchos tags va a morir el crud.</td>
                         </tr>
                         <tr>
-                           <td>4</td>
-                           <td>Philip Chaney</td>
-                           <td>$38,735</td>
-                           <td>Korea, South</td>
+                          <td>CRUD Tags</td>
+                          <td>Mejorar la vista de la consulta</td>
+                        </tr>
+                        <tr>
+                           <td>CRUD Carousel</td>
+                           <td>Faltaría mejorar el indice del carousel para que las fotos no se vean tan jodidas</td>
                         </tr>
                      </tbody>
                   </table>

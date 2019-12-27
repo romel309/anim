@@ -1,15 +1,12 @@
 @extends('layouts.visitor_body')
 @section('content')
-<script>
-$(function () {
-  $('[data-toggle="popover"]').popover()
-})</script>
+
 <div id="content-wrapper">
 <section id="blog" class="white">
     <div class="container">
         <div class="gap fade-down section-heading">
           <div class="gap"></div>
-            <h2 class="main-title">Entretenimiento</h2>
+            <h2 class="main-title">U</h2>
         </div>
         <div class="gap"></div>
         @forelse($entertainments->chunk(3) as $chunk)
@@ -19,9 +16,6 @@ $(function () {
                     <div class="post">
                         <div class="post-img-content">
                             <img src="{{ asset($entertainment->img_path) }}" class="img-responsive" alt="{{$loop->iteration}}" />
-                            <!---<div class="overlay">
-                                <a class="preview btn btn-outlined btn-primary" href="/entertainment/{{$entertainment->id}}"><i class="fa fa-link"></i></a>
-                            </div>---->
                         </div>
                         <div class="content">
                             <h2 class="post-title">{{Str::limit($entertainment->name, 52, '...')}}</h2>
@@ -33,7 +27,7 @@ $(function () {
                             </div>
 
                             @foreach($entertainment->tag as $tag)
-                              <a data-toggle="popover" data-content="Some content inside the popover" href="/entertainment?tag={{$tag->name}}">  <span class="badge badge-dark">{{$tag->name}}</span> </a>
+                              <a href="/entertainment?tag={{$tag->name}}">  <span class="badge badge-dark">{{$tag->name}}</span> </a>
                             @endforeach
 
                             <div class="read-more-wrapper">

@@ -54,10 +54,10 @@ class EntertainmentController extends Controller
         'name' => request()->name,
         'description' => request()->description,
         'youtube_link' => request()->youtube_link,
-        'img_path' => 'visitor/images/bg/'.$imageName,
+        'img_path' => 'visitor/images/entertainment/'.$imageName,
       ]);
       Entertainment::create($datatToStore);
-      request()->img_path->move(public_path('visitor/images/bg'), $imageName);
+      request()->img_path->move(public_path('visitor/images/entertainment'), $imageName);
       $searchEntertainment = Entertainment::where('name', request()->name)->first();
       $searchEntertainment->tag()->sync(request()->tagging);
       return redirect()->route('admin_entertainment.index')
@@ -92,13 +92,13 @@ class EntertainmentController extends Controller
           'name' => request()->name,
           'description' => request()->description,
           'youtube_link' => request()->youtube_link,
-          'img_path' => 'visitor/images/bg/'.$imageName,
+          'img_path' => 'visitor/images/entertainment/'.$imageName,
         ]);
         if(File::exists($entertainment->img_path)) {
             File::delete($entertainment->img_path);
         }
         $entertainment->update($datatToStore);
-        request()->img_path->move(public_path('visitor/images/bg'), $imageName);
+        request()->img_path->move(public_path('visitor/images/entertainment'), $imageName);
         $searchEntertainment = Entertainment::where('name', request()->name)->first();
         $searchEntertainment->tag()->sync(request()->tagging);
       }
