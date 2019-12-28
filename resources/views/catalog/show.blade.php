@@ -41,6 +41,45 @@
 
       </div>
     </section>
+
+    <div class="row">
+      <section id="blog" class="white">
+          <div class="container">
+              <div class="gap fade-down section-heading">
+                <div class="gap"></div>
+                  <h2 class="main-title">Comments</h2>
+              </div>
+              <div class="row">
+              @forelse($catalog->catalog_messages as $message)
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <h5><i class="fa fa-comments"></i> {{$message->username}}:</h5>
+                <p>{!! nl2br(e($message->pivot->message)) !!}</p>
+                <p><i class="fa fa-clock-o"></i> Posted at:{{$message->pivot->created_at}}</p>
+              </div>
+              @empty
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <p>No Messages</p>
+              </div>
+              @endforelse
+              <div class="col-sm-12 col-md-12 col-lg-12">
+              @guest
+                  <h5> <i class="fa fa-comments"></i>You need to <a style="color:blue;" href="/login">login</a> to comment</h5>
+              @else
+                <form method="POST" action="{{route('catalog_message.store', $catalog->id)}}" enctype="multipart/form-data">
+                  @csrf
+                    <div class="form-group">
+                      <label for="comment">Comment:</label>
+                      <textarea class="form-control" rows="8" name="message" id="message">{{old('message')}}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                 </form>
+               @endguest
+               </div>
+              </div>
+          </div>
+      </section>
+    </div>
+
 </div>
 
 @endsection

@@ -20,8 +20,12 @@ class Entertainment extends Model
       return $this->belongsToMany(Catalog::class);
     }
 
+    public function entertainment_messages(){
+        return $this->belongsToMany(User::class, 'entertainment_messages')->withTimestamps()->withPivot('message');
+    }
+
     public function ratings(){
-        return $this->belongsToMany(User::class, 'ratings');
+        return $this->belongsToMany(User::class, 'ratings')->withTimestamps();
     }
 
     public function total_ratings(Entertainment $entertainment){

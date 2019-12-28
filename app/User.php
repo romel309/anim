@@ -49,7 +49,15 @@ class User extends Authenticatable
         return $this->hasMany(Carousel::class);
     }
 
+    public function entertainment_messages(){
+        return $this->belongsToMany(Entertainment::class, 'entertainment_messages')->withTimestamps()->withPivot('message');
+    }
+
+    public function catalog_messages(){
+        return $this->belongsToMany(Catalog::class, 'catalog_messages')->withTimestamps()->withPivot('message');
+    }
+
     public function ratings(){
-        return $this->belongsToMany(Entertainment::class, 'ratings')->withPivot('id','rating');
+        return $this->belongsToMany(Entertainment::class, 'ratings')->withPivot('id','rating')->withTimestamps();
     }
 }

@@ -18,4 +18,9 @@ class Catalog extends Model
   public function visitor_entertainments(){
     return $this->belongsToMany(Entertainment::class)->orderBy('rank', 'asc');
   }
+
+  public function catalog_messages(){
+      return $this->belongsToMany(User::class, 'catalog_messages')->withTimestamps()->withPivot('message');
+  }
+
 }

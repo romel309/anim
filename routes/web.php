@@ -26,8 +26,16 @@ Route::get('/tag', ['as' => 'tag.index', 'uses' => 'TagController@index']);
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
+  // All routes messages entertainments
+  Route::post('/entertainment_message/store/{entertainment}', ['as' => 'entertainment_message.store', 'uses' => 'MessageController@store_entertainment_message']);
+  Route::post('/entertainment_message/update/{entertainment}', ['as' => 'entertainment_message.update', 'uses' => 'MessageController@update_entertainment_message']);
+  // All routes messages entertainments
+  Route::post('/catalog_message/store/{catalog}', ['as' => 'catalog_message.store', 'uses' => 'MessageController@store_catalog_message']);
+  Route::post('/catalog_message/update/{catalog}', ['as' => 'catalog_message.update', 'uses' => 'MessageController@update_catalog_message']);
+  // All routes ratings
   Route::post('/rating/store/{entertainment}', ['as' => 'rating.store', 'uses' => 'RatingController@store']);
   Route::post('/rating/update/{entertainment}', ['as' => 'rating.update', 'uses' => 'RatingController@update']);
+  //Route admin index
   Route::get('/administrator', ['as' => 'home_admin.index', 'uses' => 'AdminHomeController@index']);
   // All routes unser
   Route::get('/administrator/user', ['as' => 'admin_user.index', 'uses' => 'UserController@admin_index']);
