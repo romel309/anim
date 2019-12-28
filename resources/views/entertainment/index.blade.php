@@ -26,7 +26,7 @@ $(function () {
                         <div class="content">
                             <h2 class="post-title">{{Str::limit($entertainment->name, 52, '...')}}</h2>
                             <div class="author">
-                                <i class="fa fa-user"></i>Created By <a href="{{route('user.show',$entertainment->user_id)}}"><b>{{$entertainment->user->username}}</b></a> | <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">{{$entertainment->created_at}}</time>
+                              <i class="fa fa-user"></i>Created By <b>{{$entertainment->user->username}}</b> | <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">{{$entertainment->created_at}}</time> | <i style="color:#FFD700;" class="fa fa-star"></i>Score:{{$entertainment->avg_ratings($entertainment)}} by {{$entertainment->total_ratings($entertainment)}} users
                             </div>
                             <div>
                                 {{ Str::limit($entertainment->description, 100, '...')}}

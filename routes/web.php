@@ -26,6 +26,8 @@ Route::get('/tag', ['as' => 'tag.index', 'uses' => 'TagController@index']);
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
+  Route::post('/rating/store/{entertainment}', ['as' => 'rating.store', 'uses' => 'RatingController@store']);
+  Route::post('/rating/update/{entertainment}', ['as' => 'rating.update', 'uses' => 'RatingController@update']);
   Route::get('/administrator', ['as' => 'home_admin.index', 'uses' => 'AdminHomeController@index']);
   // All routes unser
   Route::get('/administrator/user', ['as' => 'admin_user.index', 'uses' => 'UserController@admin_index']);

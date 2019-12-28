@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Entertainment extends Model
 {
@@ -18,4 +19,17 @@ class Entertainment extends Model
     public function catalogs(){
       return $this->belongsToMany(Catalog::class);
     }
+
+    public function ratings(){
+        return $this->belongsToMany(User::class, 'ratings');
+    }
+
+    public function total_ratings(Entertainment $entertainment){
+      return $entertainment->ratings()->wherePivot('entertainment_id', $entertainment->id)->pluck('rating')->count();
+    }
+
+    public function avg_ratings(Entertainment $entertainment){
+      return $entertainment->ratings()->wherePivot('entertainment_id', $entertainment->id)->pluck('rating')->avg();
+    }
+
 }

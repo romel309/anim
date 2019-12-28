@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function carousel(){
         return $this->hasMany(Carousel::class);
     }
+
+    public function ratings(){
+        return $this->belongsToMany(Entertainment::class, 'ratings')->withPivot('id','rating');
+    }
 }

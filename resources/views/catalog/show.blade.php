@@ -22,6 +22,7 @@
               @foreach($chunk as $entertainment)
               <div class="col-sm-6 col-md-6  col-lg-6">
                 <img class="img-responsive" src="{{ asset($entertainment->img_path) }}">
+                <i style="color:#FFD700;" class="fa fa-star"></i>Score:{{$entertainment->avg_ratings($entertainment)}} by {{$entertainment->total_ratings($entertainment)}} users
               </div>
               <div class="col-sm-6 col-md-6  col-lg-6">
                   <h3 class="main-title">{{$loop->parent->iteration}}. {{$entertainment->name}} </h3>

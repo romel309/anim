@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Arr;
 use App\User;
+use App\Entertainment;
 use Auth;
 use Hash;
 

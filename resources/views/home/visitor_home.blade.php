@@ -210,21 +210,21 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="center bounce-in">
                             <span class="stat-icon"><span class="pe-7s-user bounce-in"></span></span>
-                            <h1><span class="counter">{{$users->count()}}</span></h1>
+                            <h1><span class="counter">{{$collect[0]}}</span></h1>
                             <h3>Usuarios</h3>
                         </div>
                     </div>
                     <div class="col-md-3 col-xs-6">
                         <div class="center bounce-in">
                             <span class="stat-icon"><span class="pe-7s-light bounce-in"></span></span>
-                            <h1><span class="counter">{{$entertainments->count()}}</span></h1>
+                            <h1><span class="counter">{{$collect[1]}}</span></h1>
                             <h3>Entertainments</h3>
                         </div>
                     </div>
                     <div class="col-md-3 col-xs-6">
                         <div class="center bounce-in">
                             <span class="stat-icon"><span class="pe-7s-box2 bounce-in"></span></span>
-                            <h1><span class="counter">{{$catalogs->count()}}</span></h1>
+                            <h1><span class="counter">{{$collect[1]}}</span></h1>
                             <h3>Lists</h3>
                         </div>
                     </div>
@@ -301,9 +301,9 @@
                                         </div>---->
                                     </div>
                                     <div class="content">
-                                        <h2 class="post-title">{{Str::limit($entertainment->name, 52, '...')}}</h2>
+                                        <h2 class="post-title">{{Str::limit($entertainment->name, 52, '...')}} </h2>
                                         <div class="author">
-                                            <i class="fa fa-user"></i>Created By <b>{{$entertainment->user->username}}</b> | <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">{{$entertainment->created_at}}</time>
+                                            <i class="fa fa-user"></i>Created By <b>{{$entertainment->user->username}}</b> | <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">{{$entertainment->created_at}}</time> | <i style="color:#FFD700;" class="fa fa-star"></i>Score:{{$entertainment->avg_ratings($entertainment)}} by {{$entertainment->total_ratings($entertainment)}} users
                                         </div>
                                         <div>
                                             {{ Str::limit($entertainment->description, 100, '...')}}
@@ -327,143 +327,7 @@
                 </div>
        		</section>
 
-            <section id="pricing" class="white">
-                <div class="container">
-                    <div class="center gap fade-down section-heading">
-                        <h2 class="main-title">Series con mayor rating</h2>
-                        <hr>
-                        <p>Of an or game gate west face shed. ﻿no great but music too old found arose.</p>
-                    </div>
-                    <div class="gap"></div>
-                    <div id="pricing-table" class="row">
-                        <div class="col-md-3 col-xs-6 flip-in">
-                            <ul class="plan plan1">
-                                <li class="plan-name">
-                                    <h3>Basic</h3>
-                                </li>
-                                <li class="plan-price">
-                                    <div>
-                                        <span class="price"><sup>$</sup>10</span>
-                                        <small>month</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <strong>5GB</strong> Storage
-                                </li>
-                                <li>
-                                    <strong>1GB</strong> RAM
-                                </li>
-                                <li>
-                                    <strong>400GB</strong> Bandwidth
-                                </li>
-                                <li>
-                                    <strong>10</strong> Email Address
-                                </li>
-                                <li>
-                                    <strong>Forum</strong> Support
-                                </li>
-                                <li class="plan-action">
-                                    <a href="#" class="btn btn-outlined btn-primary btn-md btn-white">Signup</a>
-                                </li>
-                            </ul>
-                        </div><!--/.col-md-3-->
-                        <div class="col-md-3 col-xs-6 flip-in">
-                            <ul class="plan plan2 featured">
-                                <li class="plan-name">
-                                    <h3>Standard</h3>
-                                </li>
-                                <li class="plan-price">
-                                    <div>
-                                        <span class="price"><sup>$</sup>20</span>
-                                        <small>month</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <strong>5GB</strong> Storage
-                                </li>
-                                <li>
-                                    <strong>1GB</strong> RAM
-                                </li>
-                                <li>
-                                    <strong>400GB</strong> Bandwidth
-                                </li>
-                                <li>
-                                    <strong>10</strong> Email Address
-                                </li>
-                                <li>
-                                    <strong>Forum</strong> Support
-                                </li>
-                                <li class="plan-action">
-                                    <a href="#" class="btn btn-outlined btn-primary btn-md">Signup</a>
-                                </li>
-                            </ul>
-                        </div><!--/.col-md-3-->
-                        <div class="col-md-3 col-xs-6 flip-in">
-                            <ul class="plan plan3">
-                                <li class="plan-name">
-                                    <h3>Advanced</h3>
-                                </li>
-                                <li class="plan-price">
-                                    <div>
-                                        <span class="price"><sup>$</sup>40</span>
-                                        <small>month</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <strong>50GB</strong> Storage
-                                </li>
-                                <li>
-                                    <strong>8GB</strong> RAM
-                                </li>
-                                <li>
-                                    <strong>1024GB</strong> Bandwidth
-                                </li>
-                                <li>
-                                    <strong>Unlimited</strong> Email Address
-                                </li>
-                                <li>
-                                    <strong>Forum</strong> Support
-                                </li>
-                                <li class="plan-action">
-                                    <a href="#" class="btn btn-outlined btn-primary btn-md btn-white">Signup</a>
-                                </li>
-                            </ul>
-                        </div><!--/.col-md-3-->
-                        <div class="col-md-3 col-xs-6 flip-in">
-                            <ul class="plan plan4">
-                                <li class="plan-name">
-                                    <h3>Mighty</h3>
-                                </li>
-                                <li class="plan-price">
-                                    <div>
-                                        <span class="price"><sup>$</sup>100</span>
-                                        <small>month</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <strong>50GB</strong> Storage
-                                </li>
-                                <li>
-                                    <strong>8GB</strong> RAM
-                                </li>
-                                <li>
-                                    <strong>1024GB</strong> Bandwidth
-                                </li>
-                                <li>
-                                    <strong>Unlimited</strong> Email Address
-                                </li>
-                                <li>
-                                    <strong>Forum</strong> Support
-                                </li>
-                                <li class="plan-action">
-                                    <a href="#" class="btn btn-outlined btn-primary btn-md btn-white">Signup</a>
-                                </li>
-                            </ul>
-                        </div><!--/.col-md-3-->
-                    </div>
-                    <div class="gap"></div>
-                </div>
-            </section>
+
 
 
         </div>

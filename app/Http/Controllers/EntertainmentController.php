@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use App\CustomClasses\VideoUrlParser;
 use App\Entertainment;
 use App\Tag;
@@ -23,13 +24,23 @@ class EntertainmentController extends Controller
     }
 
     public function show(Entertainment $entertainment){
+        $avg_rating = $entertainment->ratings()->wherePivot('entertainment_id', $entertainment->id)->pluck('rating')->avg();
+        $user_id=Auth::id();
+        $rating = '';
+        if($user_id){
+          $rating = $entertainment->ratings()->wherePivot('user_id', $user_id)
+                                             ->wherePivot('entertainment_id', $entertainment->id)
+                                             ->pluck('rating');
+          $rating = Str::replaceFirst('[', '', $rating);
+          $rating = Str::replaceFirst(']', '', $rating);
+        }
         $entertainments =  Entertainment::orderBy('created_at', 'DESC')->take(6)->get();
         $youtube = $entertainment->youtube_link;
         $iframeyoutube='';
         if ($youtube) {
             $iframeyoutube= VideoUrlParser::get_youtube_embed(VideoUrlParser::get_youtube_id($entertainment->youtube_link));
         }
-        return view('entertainment.show', compact('entertainments', 'entertainment', 'iframeyoutube') );
+        return view('entertainment.show', compact('entertainments', 'entertainment', 'iframeyoutube', 'rating') );
     }
 
     public function admin_index(){

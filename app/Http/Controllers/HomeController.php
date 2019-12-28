@@ -10,6 +10,7 @@ use App\Catalog;
 use App\Entertainment;
 use App\Carousel;
 use App\Tag;
+use App\Rating;
 
 class HomeController extends Controller
 {
@@ -33,8 +34,9 @@ class HomeController extends Controller
       $users = User::take(4)->get();
       $entertainments = Entertainment::orderBy('created_at', 'DESC')->take(3)->get();
       $catalogs = Catalog::orderBy('created_at', 'DESC')->take(3)->get();
-      $tags = Tag::orderBy('created_at', 'DESC')->take(3)->get();
+      $tags = Tag::orderBy('created_at', 'DESC')->get();
       $carousel = Carousel::where('show', 1)->get();
-        return view('home.visitor_home', compact('users', 'entertainments', 'tags', 'catalogs', 'carousel'));
+      $collect = collect([User::all()->count(),Entertainment::all()->count(), Catalog::all()->count()]);
+        return view('home.visitor_home', compact('users', 'entertainments', 'tags', 'catalogs', 'carousel', 'collect', 'highest_ratings_entertainments'));
     }
 }
