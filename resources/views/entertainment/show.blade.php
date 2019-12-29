@@ -10,7 +10,7 @@
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <strong>Sucess!</strong> {!! $message !!}
         </div>
-        @endif()
+        @endif
         @if ($errors = Session::get('errors'))
         @foreach($errors->all() as $message)
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -18,7 +18,7 @@
           <strong>Error!</strong> {!! $message !!}
         </div>
         @endforeach
-        @endif()
+        @endif
         <div class="row">
             <div class="col-sm-12 col-md-12  col-lg-12">
               <div class="author">
@@ -90,7 +90,7 @@
                       @endforeach
                       <hr>
                       @if($iframeyoutube)
-                      <p>{{$entertainment->description}}</p>
+                      <p>{!! nl2br(e($entertainment->description)) !!}</p>
                       <!-- 16:9 aspect ratio -->
                       <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" allowfullscreen src="{{$iframeyoutube}}"></iframe>
@@ -161,7 +161,7 @@
                                   <div class="content">
                                       <h2 class="post-title">{{Str::limit($en->name, 52, '...')}}</h2>
                                       <div class="author">
-                                          <i class="fa fa-user"></i>Created By <a href="{{route('user.show',$en->user_id)}}"><b>{{$en->user->username}}</b></a> | <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">{{$entertainment->created_at}}</time>
+                                          <i class="fa fa-user"></i>Created By <a href="{{route('user.show',$en->user_id)}}"><b>{{$en->user->username}}</b></a> | <i class="fa fa-clock-o"></i> <time datetime="2014-01-20">{{$entertainment->created_at}}</time> |<i style="color:#FFD700;" class="fa fa-star"></i>Score:{{$entertainment->avg_ratings($entertainment)}} by {{$entertainment->total_ratings($entertainment)}} users
                                       </div>
                                       <div>
                                           {{ Str::limit($en->description, 100, '...')}}

@@ -18,6 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('visitor/images/ico/apple-touch-icon.png')}}">
+    <link rel="apple-touch-icon" href="{{ asset('visitor/images/ico/apple-touch-icon.png')}}" >
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('visitor/images/ico/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('visitor/images/ico/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('visitor/images/ico/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('visitor/images/ico/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ asset('visitor/images/ico/safari-pinned-tab.svg')}}" color="#5bbad5">
 </head>
 <body>
     <div id="app">
@@ -40,6 +47,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
+                            <!--
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -48,6 +56,7 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+                          -->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

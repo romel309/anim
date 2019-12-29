@@ -39,7 +39,7 @@
           <div class="col-lg-12 col-md-12">
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" name="description" id="description" maxlength="255" rows="12" placeholder="Esta lista sirve para mostrar mi top 10 de series donde existen relaciones amorosas de una gran diferencia de edad." required>{{ $catalog->description}}</textarea>
+                <textarea class="form-control" name="description" id="description" maxlength="2000" rows="12" placeholder="Esta lista sirve para mostrar mi top 10 de series donde existen relaciones amorosas de una gran diferencia de edad." required>{{ $catalog->description}}</textarea>
             </div>
           </div>
         </div>

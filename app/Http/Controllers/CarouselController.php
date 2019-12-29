@@ -11,7 +11,7 @@ use Auth;
 class CarouselController extends Controller
 {
   public function admin_index(){
-      $carousel = Carousel::orderBy('created_at','DESC')->paginate(6);
+      $carousel = Carousel::orderBy('id','DESC')->paginate(6);
       return view('carousel.admin_index', ['carousel' => $carousel]);
   }
 

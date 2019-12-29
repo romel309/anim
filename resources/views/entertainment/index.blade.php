@@ -43,6 +43,7 @@ $(function () {
                     </div>
               </div>
               @endforeach
+          <div class="gap"></div>
           </div>
           @empty
           <p>No Entertainment</p>

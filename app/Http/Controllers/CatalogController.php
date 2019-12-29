@@ -13,12 +13,12 @@ use Auth;
 class CatalogController extends Controller
 {
     public function index(){
-        $catalogs = Catalog::orderBy('created_at','DESC')->paginate(12);
+        $catalogs = Catalog::orderBy('id','DESC')->paginate(12);
         return view('catalog.index', ['catalogs' => $catalogs]);
     }
 
     public function admin_index(){
-        $catalogs = Catalog::orderBy('created_at','DESC')->paginate(12);
+        $catalogs = Catalog::orderBy('id','DESC')->paginate(12);
         return view('catalog.admin_index', ['catalogs' => $catalogs]);
     }
 
@@ -34,7 +34,7 @@ class CatalogController extends Controller
     public function admin_store(Catalog $catalog){
       $validatedAttributes = request()->validate([
         'name' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
+        'description' => 'required|string|max:2000|min:1',
         'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'ente' => 'required',
         'ente.*' => 'numeric',
@@ -101,7 +101,7 @@ class CatalogController extends Controller
     public function admin_update(Catalog $catalog){
       $validatedAttributes = request()->validate([
         'name' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
+        'description' => 'required|string|max:2000|min:1',
         'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'ente' => 'required',
         'ente.*' => 'numeric',

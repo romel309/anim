@@ -25,6 +25,7 @@
             </div>
             @endforeach
           </div>
+          <div class="gap"></div>
           @empty
           <p>No Lists</p>
           @endforelse

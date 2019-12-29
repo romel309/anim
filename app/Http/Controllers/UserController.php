@@ -15,7 +15,7 @@ use Hash;
 class UserController extends Controller
 {
   public function index(){
-      $users = User::orderBy('created_at','DESC')->paginate(6);
+      $users = User::orderBy('id','DESC')->paginate(6);
       return view('user.index', ['users' => $users]);
   }
 
@@ -24,7 +24,7 @@ class UserController extends Controller
   }
 
   public function admin_index(){
-      $users = User::orderBy('created_at','ASC')->paginate(6);
+      $users = User::orderBy('id','ASC')->paginate(6);
       return view('user.admin_index', ['users' => $users]);
   }
 

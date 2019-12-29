@@ -11,7 +11,7 @@ class MessageController extends Controller
 {
   public function store_entertainment_message(Entertainment $entertainment){
     $validatedAttributes = request()->validate([
-      'message' => 'required|string|max:1000|min:1',
+      'message' => 'required|string|max:4000|min:1',
     ]);
     $entertainment->entertainment_messages()->attach(Auth::user()->id, ['message' => request()->message]);
     return redirect()->route('entertainment.show', $entertainment->id)
@@ -29,7 +29,7 @@ class MessageController extends Controller
 
   public function store_catalog_message(Catalog $catalog){
     $validatedAttributes = request()->validate([
-      'message' => 'required|string|max:1000|min:1',
+      'message' => 'required|string|max:4000|min:1',
     ]);
     $catalog->catalog_messages()->attach(Auth::user()->id, ['message' => request()->message]);
     return redirect()->route('catalog.show', $catalog->id)

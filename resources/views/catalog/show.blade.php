@@ -5,7 +5,21 @@
   <section id="services" class="white">
       <div class="container">
       <div class="gap"></div>
-          <div class="row">
+      @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Sucess!</strong> {!! $message !!}
+        </div>
+        @endif
+        @if ($errors = Session::get('errors'))
+        @foreach($errors->all() as $message)
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Error!</strong> {!! $message !!}
+        </div>
+        @endforeach
+        @endif
+        <div class="row">
               <div class="col-sm-12 col-md-12  col-lg-12">
                 <h4>{{$catalog->name}} </h4>
                 <div class="author">
@@ -25,12 +39,12 @@
                 <i style="color:#FFD700;" class="fa fa-star"></i>Score:{{$entertainment->avg_ratings($entertainment)}} by {{$entertainment->total_ratings($entertainment)}} users
               </div>
               <div class="col-sm-6 col-md-6  col-lg-6">
-                  <h3 class="main-title">{{$loop->parent->iteration}}. {{$entertainment->name}} </h3>
-                  <hr>
-                  <p>{{$entertainment->description}}</p>
+                  <h3 class="main-title">{{$loop->parent->iteration}}. <a target="_blank" href="{{route('entertainment.show', $entertainment->id)}}">{{$entertainment->name}}</a> </h3>
                   @foreach($entertainment->tag as $tag)
                     <a href="/entertainment?tag={{$tag->name}}">  <span class="badge badge-dark">{{$tag->name}}</span> </a>
                   @endforeach
+                  <hr>
+                  <p>{!! nl2br(e($entertainment->description)) !!}</p>
               </div>
               @endforeach
               <div class="gap"></div>
@@ -69,7 +83,7 @@
                   @csrf
                     <div class="form-group">
                       <label for="comment">Comment:</label>
-                      <textarea class="form-control" rows="8" name="message" id="message">{{old('message')}}</textarea>
+                      <textarea class="form-control" maxlength="4000" rows="8" name="message" id="message">{{old('message')}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                  </form>

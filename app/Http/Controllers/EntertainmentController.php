@@ -18,7 +18,7 @@ class EntertainmentController extends Controller
         if(request('tag')){
           $entertainments =  Tag::where('name',request('tag'))->firstOrFail()->entertainments()->paginate(12);
         } else{
-          $entertainments = Entertainment::orderBy('created_at','DESC')->paginate(12);
+          $entertainments = Entertainment::orderBy('id','DESC')->paginate(12);
         }
         return view('entertainment.index', ['entertainments' => $entertainments]);
     }
@@ -34,7 +34,7 @@ class EntertainmentController extends Controller
           $rating = Str::replaceFirst('[', '', $rating);
           $rating = Str::replaceFirst(']', '', $rating);
         }
-        $entertainments =  Entertainment::orderBy('created_at', 'DESC')->take(6)->get();
+        $entertainments =  Entertainment::orderBy('id', 'DESC')->take(6)->get();
         $youtube = $entertainment->youtube_link;
         $iframeyoutube='';
         if ($youtube) {
@@ -44,7 +44,7 @@ class EntertainmentController extends Controller
     }
 
     public function admin_index(){
-      $entertainments = Entertainment::orderBy('created_at','DESC')->paginate(12);
+      $entertainments = Entertainment::orderBy('id','DESC')->paginate(12);
       return view('entertainment.admin_index', ['entertainments' => $entertainments]);
     }
 
@@ -60,7 +60,7 @@ class EntertainmentController extends Controller
     public function admin_store(Entertainment $entertainment){
       $validatedAttributes = request()->validate([
         'name' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
+        'description' => 'required|string|max:3000|min:1',
         'img_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'youtube_link' => 'nullable|url|string|max:255',
         'tagging' => 'required',
@@ -97,7 +97,7 @@ class EntertainmentController extends Controller
     public function admin_update(Entertainment $entertainment){
       $validatedAttributes = request()->validate([
         'name' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
+        'description' => 'required|string|max:3000|min:1',
         'img_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'youtube_link' => 'nullable|url|string|max:255',
         'tagging' => 'required',

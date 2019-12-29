@@ -224,7 +224,7 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="center bounce-in">
                             <span class="stat-icon"><span class="pe-7s-box2 bounce-in"></span></span>
-                            <h1><span class="counter">{{$collect[1]}}</span></h1>
+                            <h1><span class="counter">{{$collect[2]}}</span></h1>
                             <h3>Lists</h3>
                         </div>
                     </div>
