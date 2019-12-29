@@ -37,6 +37,6 @@ class HomeController extends Controller
       $tags = Tag::orderBy('id', 'DESC')->get();
       $carousel = Carousel::where('show', 1)->get();
       $collect = collect([User::all()->count(),Entertainment::all()->count(), Catalog::all()->count()]);
-        return view('home.visitor_home', compact('users', 'entertainments', 'tags', 'catalogs', 'carousel', 'collect', 'highest_ratings_entertainments'));
+        return view('home.visitor_home', compact('users', 'entertainments', 'tags', 'catalogs', 'carousel', 'collect'));
     }
 }
