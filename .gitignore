@@ -4,7 +4,6 @@
 /storage/*.key
 /vendor
 /public/visitor/images/basura
-/public/visitor/images/user
 /public/visitor/images/carousel
 /public/visitor/images/catalog
 /public/visitor/images/entertainment
