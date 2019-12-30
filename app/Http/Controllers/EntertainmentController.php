@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\CustomClasses\VideoUrlParser;
 use App\Entertainment;
 use App\Tag;
+use App;
 use Auth;
 
 class EntertainmentController extends Controller
@@ -65,21 +68,23 @@ class EntertainmentController extends Controller
         'youtube_link' => 'nullable|url|string|max:255',
         'tagging' => 'required',
       ]);
-      $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
-      $datatToStore = ([
-        'user_id' => Auth::user()->id,
-        'name' => request()->name,
-        'description' => request()->description,
-        'youtube_link' => request()->youtube_link,
-        'img_path' => 'visitor/images/entertainment/'.$imageName,
-      ]);
+      Arr::pull($validatedAttributes, 'img_path');
+      $user_auth_id = Arr::add($validatedAttributes, 'user_id', Auth::user()->id);
+      if (App::environment('local')){
+        $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
+        $datatToStore = Arr::add($user_auth_id, 'img_path', 'visitor/images/entertainment/'.$imageName);
+        request()->img_path->move(public_path('visitor/images/entertainment'), $imageName);
+      }
+      if (App::environment('production')){
+        $path = Storage::disk('s3')->putFile('entertainment', request()->img_path, 'public');
+        $url = Storage::disk('s3')->url($path);
+        $datatToStore = Arr::add($user_auth_id, 'img_path', $url);
+      }
       Entertainment::create($datatToStore);
-      request()->img_path->move(public_path('visitor/images/entertainment'), $imageName);
       $searchEntertainment = Entertainment::where('name', request()->name)->first();
       $searchEntertainment->tag()->sync(request()->tagging);
       return redirect()->route('admin_entertainment.index')
                         ->with('success','Se agregó el entretenimiento exitosamente');
-      //$user = App\User::create($request->only('name', 'age'); // or whatever the parent in the relationship is
     }
 
     public function admin_edit(Entertainment $entertainment){
@@ -103,34 +108,49 @@ class EntertainmentController extends Controller
         'tagging' => 'required',
       ]);
       if(request()->hasfile('img_path')){
-        $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
-        $datatToStore = ([
-          'user_id' => Auth::user()->id,
-          'name' => request()->name,
-          'description' => request()->description,
-          'youtube_link' => request()->youtube_link,
-          'img_path' => 'visitor/images/entertainment/'.$imageName,
-        ]);
-        if(File::exists($entertainment->img_path)) {
-            File::delete($entertainment->img_path);
+        Arr::pull($validatedAttributes, 'img_path');
+        $user_auth_id = Arr::add($validatedAttributes, 'user_id', Auth::user()->id);
+        if (App::environment('local')){
+          $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
+          $datatToStore = Arr::add($user_auth_id, 'img_path', 'visitor/images/entertainment/'.$imageName);
+          if(File::exists($entertainment->img_path)) {
+              File::delete($entertainment->img_path);
+          }
+          request()->img_path->move(public_path('visitor/images/entertainment'), $imageName);
+        }
+        if (App::environment('production')){
+          $aws_url = env('AWS_URL', false);
+          $path = Str::after($entertainment->img_path, $aws_url);
+          if(Storage::disk('s3')->exists($path)){
+            Storage::disk('s3')->delete($path);
+          }
+          $path = Storage::disk('s3')->putFile('entertainment', request()->img_path, 'public');
+          $url = Storage::disk('s3')->url($path);
+          $datatToStore = Arr::add($user_auth_id, 'img_path', $url);
         }
         $entertainment->update($datatToStore);
-        request()->img_path->move(public_path('visitor/images/entertainment'), $imageName);
-        $searchEntertainment = Entertainment::where('name', request()->name)->first();
-        $searchEntertainment->tag()->sync(request()->tagging);
+        $entertainment->tag()->sync(request()->tagging);
       }
       else{
         $entertainment->update(request()->only('name', 'description', 'youtube_link'));
-        $searchEntertainment = Entertainment::where('name', request()->name)->first();
-        $searchEntertainment->tag()->sync(request()->tagging);
+        $entertainment->tag()->sync(request()->tagging);
       }
       return redirect()->route('admin_entertainment.index')
                         ->with('success','Se agregó el entretenimiento exitosamente');
     }
 
     public function admin_delete(Entertainment $entertainment){
-      if(File::exists($entertainment->img_path)) {
-          File::delete($entertainment->img_path);
+      if (App::environment('local')){
+        if(File::exists($entertainment->img_path)) {
+            File::delete($entertainment->img_path);
+        }
+      }
+      if (App::environment('production')){
+        $aws_url = env('AWS_URL', false);
+        $path = Str::after($entertainment->img_path, $aws_url);
+        if(Storage::disk('s3')->exists($path)){
+          Storage::disk('s3')->delete($path);
+        }
       }
       $entertainment->delete();
       return redirect()->route('admin_entertainment.index')
