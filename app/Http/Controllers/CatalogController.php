@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use App\Entertainment;
 use App\Catalog;
 use Auth;
+use App;
 
 class CatalogController extends Controller
 {
@@ -39,15 +43,19 @@ class CatalogController extends Controller
         'ente' => 'required',
         'ente.*' => 'numeric',
       ]);
-      $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
-      $datatToStore = ([
-        'user_id' => Auth::user()->id,
-        'name' => request()->name,
-        'description' => request()->description,
-        'thumbnail' => 'visitor/images/catalog/'.$imageName,
-      ]);
-      Catalog::create($datatToStore);
-      request()->thumbnail->move(public_path('visitor/images/catalog'), $imageName);
+      Arr::pull($validatedAttributes, 'thumbnail');
+      $user_auth_id = Arr::add($validatedAttributes, 'user_id', Auth::user()->id);
+      if (App::environment('local')){
+        $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
+        $validatedAttributes = Arr::add($user_auth_id, 'thumbnail', 'visitor/images/catalog/'.$imageName);
+        request()->thumbnail->move(public_path('visitor/images/catalog'), $imageName);
+      }
+      if (App::environment('production')){
+        $path = Storage::disk('s3')->putFile('catalog', request()->thumbnail, 'public');
+        $url = Storage::disk('s3')->url($path);
+        $validatedAttributes = Arr::add($user_auth_id, 'thumbnail', $url);
+      }
+      Catalog::create($validatedAttributes);
       $searchEntertainment = Catalog::where('name', request()->name)->first();
       $allEntertainments = collect();
       $i=1;
@@ -107,45 +115,61 @@ class CatalogController extends Controller
         'ente.*' => 'numeric',
       ]);
       if(request()->hasfile('thumbnail')){
-        $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
-        $datatToStore = ([
-          'user_id' => Auth::user()->id,
-          'name' => request()->name,
-          'description' => request()->description,
-          'thumbnail' => 'visitor/images/catalog/'.$imageName,
-        ]);
-        if(File::exists($catalog->thumbnail)) {
-            File::delete($catalog->thumbnail);
+        Arr::pull($validatedAttributes, 'thumbnail');
+        $user_auth_id = Arr::add($validatedAttributes, 'user_id', Auth::user()->id);
+        if (App::environment('local')){
+          $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
+          $validatedAttributes = Arr::add($user_auth_id, 'thumbnail', 'visitor/images/catalog/'.$imageName);
+          if(File::exists($catalog->thumbnail)) {
+              File::delete($catalog->thumbnail);
+          }
+          request()->thumbnail->move(public_path('visitor/images/catalog'), $imageName);
         }
-        $catalog->update($datatToStore);
-        request()->thumbnail->move(public_path('visitor/images/catalog'), $imageName);
-        $searchCatalog = Catalog::where('name', request()->name)->first();
+        if (App::environment('production')){
+          $aws_url = env('AWS_URL', false);
+          $path = Str::after($catalog->thumbnail, $aws_url);
+          if(Storage::disk('s3')->exists($path)){
+            Storage::disk('s3')->delete($path);
+          }
+          $path = Storage::disk('s3')->putFile('catalog', request()->thumbnail, 'public');
+          $url = Storage::disk('s3')->url($path);
+          $validatedAttributes = Arr::add($user_auth_id, 'thumbnail', $url);
+        }
+        $catalog->update($validatedAttributes);
         $allEntertainments = collect();
         $i=1;
         foreach(request()->ente as $singularEnte){
           $allEntertainments->put($singularEnte, ['rank' => $i]);
           $i++;
         }
-        $searchCatalog->entertainments()->sync($allEntertainments);
+        $catalog->entertainments()->sync($allEntertainments);
       }
       else{
         $catalog->update(request()->only('name', 'description'));
-        $searchCatalog = Catalog::where('name', request()->name)->first();
         $allEntertainments = collect();
         $i=1;
         foreach(request()->ente as $singularEnte){
           $allEntertainments->put($singularEnte, ['rank' => $i]);
           $i++;
         }
-        $searchCatalog->entertainments()->sync($allEntertainments);
+        $catalog->entertainments()->sync($allEntertainments);
       }
       return redirect()->route('admin_catalog.index')
                         ->with('success','Se editó la lista exitosamente');
     }
 
     public function admin_delete(Catalog $catalog){
-      if(File::exists($catalog->thumbnail)) {
-          File::delete($catalog->thumbnail);
+      if (App::environment('local')){
+        if(File::exists($catalog->thumbnail)) {
+            File::delete($catalog->thumbnail);
+        }
+      }
+      if (App::environment('production')){
+        $aws_url = env('AWS_URL', false);
+        $path = Str::after($catalog->thumbnail, $aws_url);
+        if(Storage::disk('s3')->exists($path)){
+          Storage::disk('s3')->delete($path);
+        }
       }
       $catalog->delete();
       return redirect()->route('admin_catalog.index')

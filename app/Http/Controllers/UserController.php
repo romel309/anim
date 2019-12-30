@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Arr;
 use App\User;
 use App\Entertainment;
 use Auth;
 use Hash;
+use App;
 
 class UserController extends Controller
 {
@@ -41,13 +44,20 @@ class UserController extends Controller
       'img_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
       'password' => 'required|string|confirmed',
     ]);
-    $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
     $hashPassword = Hash::make(Arr::pull($validatedAttributes, 'password'));
-    Arr::pull($validatedAttributes, 'img_path');
-    $validatedAttributes = Arr::add($validatedAttributes, 'img_path', 'visitor/images/user/'.$imageName);
     $validatedAttributes = Arr::add($validatedAttributes, 'password', $hashPassword);
+    Arr::pull($validatedAttributes, 'img_path');
+    if (App::environment('local')){
+      $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
+      $validatedAttributes = Arr::add($validatedAttributes, 'img_path', 'visitor/images/user/'.$imageName);
+      request()->img_path->move(public_path('visitor/images/user'), $imageName);
+    }
+    if (App::environment('production')){
+      $path = Storage::disk('s3')->putFile('user', request()->img_path, 'public');
+      $url = Storage::disk('s3')->url($path);
+      $validatedAttributes = Arr::add($validatedAttributes, 'img_path', $url);
+    }
     User::create($validatedAttributes);
-    request()->img_path->move(public_path('visitor/images/user'), $imageName);
     return redirect()->route('admin_user.index')
                       ->with('success','Se agregó el usuario exitosamente');
   }
@@ -72,18 +82,31 @@ class UserController extends Controller
       Arr::pull($validatedAttributes, 'password');
     }
     if(request()->hasfile('img_path')){
-      $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
-      if(File::exists($user->img_path)) {
-          File::delete($user->img_path);
-      }
       Arr::pull($validatedAttributes, 'img_path');
-      $validatedAttributes = Arr::add($validatedAttributes, 'img_path', 'visitor/images/user/'.$imageName);
+      if (App::environment('local')){
+        $imageName = time().'.'.request()->img_path->getClientOriginalExtension();
+        $validatedAttributes = Arr::add($validatedAttributes, 'img_path', 'visitor/images/user/'.$imageName);
+        if(File::exists($user->img_path)) {
+            File::delete($user->img_path);
+        }
+        request()->img_path->move(public_path('visitor/images/user'), $imageName);
+        $validatedAttributes = Arr::add($validatedAttributes, 'img_path', 'visitor/images/user/'.$imageName);
+      }
+      if (App::environment('production')){
+        $aws_url = env('AWS_URL', false);
+        $path = Str::after($user->img_path, $aws_url);
+        if(Storage::disk('s3')->exists($path)){
+          Storage::disk('s3')->delete($path);
+        }
+        $path = Storage::disk('s3')->putFile('user', request()->img_path, 'public');
+        $url = Storage::disk('s3')->url($path);
+        $validatedAttributes = Arr::add($validatedAttributes, 'img_path', $url);
+      }
     }
     else{
       Arr::pull($validatedAttributes, 'img_path');
     }
     $user->update($validatedAttributes);
-    request()->img_path->move(public_path('visitor/images/user'), $imageName);
     return redirect()->route('admin_user.index')
                       ->with('success','Se actualizo la información del usuario');
   }
@@ -93,8 +116,17 @@ class UserController extends Controller
       return redirect()->route('admin_user.index')
                         ->with('success','No puedes hacer eso dab');
     }
-    if(File::exists($user->img_path)) {
-        File::delete($user->img_path);
+    if (App::environment('local')){
+      if(File::exists($user->img_path)) {
+          File::delete($user->img_path);
+      }
+    }
+    if (App::environment('production')){
+      $aws_url = env('AWS_URL', false);
+      $path = Str::after($user->img_path, $aws_url);
+      if(Storage::disk('s3')->exists($path)){
+        Storage::disk('s3')->delete($path);
+      }
     }
     $user->delete();
     return redirect()->route('admin_user.index')
